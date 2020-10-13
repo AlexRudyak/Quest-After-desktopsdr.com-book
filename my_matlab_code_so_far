@@ -1,0 +1,39 @@
+clear all;
+clc;
+%% Arrays
+my_array_r   = [1, -2, -5, 6, 9, -6, -4, 0];          % define a row vector
+my_array_c   = [8; -9; -1; -4; 3; 6; 5];              % define column vector
+my_ones      = ones(1,10);                            % create a 1 by 10 row vector made of 1's
+my_zeros     = zeros(1,8);                            % create a 1 by 8 row vector made of 0's
+num_ones     = length(my_ones);                       % calculate the size of the row vector of 1's
+num_zeros    = length(my_zeros);                      % calculate the size of the row vector of 0's
+max_r        = max(my_array_r);                       % find max number in "my_array_r" array
+max_c        = min(my_array_c);                       % find min number in "my array_c" array
+my_rands     = rand(1,10);                            % create and array of random numbers between 0 and 1
+my_rands_6   = -6 + ((6-(-6))*rand(1,10));            % creates a 1 by 10 array full of random numbers between -6 and 6
+my_rands_3_5 = 3 + ((5-3)*rand(1,10));                % creates a 1 by 10 array full of random numbers between 3 and 5
+my_rand_ints = round((12*rand(1,10))-6);              % creates a 1 by 10 array full of random integers between -6 and 6
+my_rands_t   = transpose(my_rands);                   % transpose(switch between row and column) the "my_rands" array
+my_rands_6_t = (my_rands_6)';                         % same as ^ 
+first_elem   = my_rands (1);                          % pulls out the first element of my_rands array
+sub_zero_i   = find(my_rands_6 < 0);                  % find indices (index) of elements < 0 in my_rands_6 array
+my_rands_6_sz = my_rands_6(sub_zero_i);               % use the index we found before to pull the elements them selves from the my_rands_6 array
+glue = [my_ones, my_zeros];                           % concatenate ("glue") the my_ones array to my_zeros array
+%% matrices
+my_matrix_A = [1, 2, 3, 4; 5, 6, 7, 8; 9, 10, 11 12]; % create a 3 by 4 matrix A
+my_matrix_B = [3, 3, 3, 3; 1, 2, 1, 2; 4, 4, 5, 5];   % create a 3 by 4 matrix B
+size(my_matrix_B);                                    % find the dimensions of the matrix
+my_oneM = ones(4,2);                                  % create matrix 4 by 2 of 1's
+my_zeroM = zeros(3,5);                                % create a 3 by 5 matrix of 0's
+my_randM = rand(5,5);                                 % create a random 5 by 5 matrix full of random numbers between 0 and 1
+my_matrix_C = my_matrix_A + my_matrix_B;              % add matrix A with Matrix B
+my_matrix_D = my_matrix_A - my_matrix_B;              % subtract matrix A with Matrix B
+row_1 = my_matrix_A(1,:);                             % extract 1st row of matrix A 
+col_2 = my_matrix_A(:,2);                             % extracts 2nd column of matrix A
+my_matrix_A_t = (my_matrix_A)';                       % transpose matrix A
+
+
+
+
+
+
