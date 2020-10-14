@@ -1,6 +1,32 @@
 clear all;
 clc;
-%% Exercise 4.6
+%% Exercise 4.5 - MATLAB Figures
+clc;
+clear all;
+% this is used to generate and plot sine and cosine waves
+fs = 2000;                                            % sampling frequency in Hz
+Ts = 1/fs;                                            % sample period
+f1 = 100;                                             % frequency of the sine wave in Hz
+Tmax = 0.6;                                           % duration of simulation
+t = 0:Ts:Tmax;                                        % create and array of time values from 0 to Tmax
+                                                      % in steps of Ts, the sample period)
+As = 0.7*sin(2*pi*f1*t);                              % create a corresponding array of sine samples
+Ac = 1.3*cos(2*pi*f1*t);                              % create a corresponding array of cosine samples
+A3 = As + Ac;                                         % create an array with sums of the cos and sin waves
+figure (1)                                            % new figure
+hold off                                              % do not retain any previous data in plot
+stem (t, As, 'r-o');                                  % plot in red continious line and round marker
+hold on                                               % retain the sine while you add the cosine
+stem (t, Ac, 'b-o');                                  % plot in blue continous line and round marker
+hold on;                                              % retain the sum of the waves on top of the previous
+stem (t, A3, 'g-o');                                  % plot in green continious line and round marker
+xlabel ('Time (seconds)');                            % add a label to the x axis
+ylabel ('Amplitude');                                 % add a label to the y axis
+title ('Sine and Cosine');                            % add a title to the plot
+legend ('0.7Sin(2\pif_1t)','1.3Cos(2\pif_1t)','location','NorthEast'); % add a legend to the graph
+grid on;                                              % show the grid
+axis ([0 (2/f1) -2 2]);                               % configure axis scaling
+%% Exercise 4.6 - MATLAB Arrays
 my_array_r   = [1, -2, -5, 6, 9, -6, -4, 0];          % define a row vector
 my_array_c   = [8; -9; -1; -4; 3; 6; 5];              % define column vector
 my_ones      = ones(1,10);                            % create a 1 by 10 row vector made of 1's
@@ -19,7 +45,7 @@ first_elem   = my_rands (1);                          % pulls out the first elem
 sub_zero_i   = find(my_rands_6 < 0);                  % find indices (index) of elements < 0 in my_rands_6 array
 my_rands_6_sz = my_rands_6(sub_zero_i);               % use the index we found before to pull the elements them selves from the my_rands_6 array
 glue = [my_ones, my_zeros];                           % concatenate ("glue") the my_ones array to my_zeros array
-%% Exercise 4.7
+%% Exercise 4.7 - Matrices in MATLAB
 my_matrix_A = [1, 2, 3, 4; 5, 6, 7, 8; 9, 10, 11 12]; % create a 3 by 4 matrix A
 my_matrix_B = [3, 3, 3, 3; 1, 2, 1, 2; 4, 4, 5, 5];   % create a 3 by 4 matrix B
 size(my_matrix_B);                                    % find the dimensions of the matrix
@@ -33,28 +59,24 @@ col_2 = my_matrix_A(:,2);                             % extracts 2nd column of m
 my_matrix_A_t = (my_matrix_A)';                       % transpose matrix A
 my_var(1,1,:) = [1, 2, 3, 4, 5, 6, 7, 8, 9];          % create a 1 x 1 x n data
 my_var_2 = squeeze(my_var);                           % reduce to 1 x n data
-%% Exercise 4.8
-% script to demonstrate the use of structures
-
-clear all;              % ensure no old data is hanging around!
-
+%% Exercise 4.8 - MATLAB Structres
+                                                      % script to demonstrate the use of structures
+clear all;                                            % ensure no old data is hanging around!
 % create the weather structure, and various fields within it
-
-weather.days = [1 2 3 4 5 6 7 8 9 10];
-weather.temperature = [11 10 14 17 18 17 15 16 18 20];
-weather.rainfall = [6 3 5 0 1 0 2 8 3 2];
-weather.wind = [12 9 8 4 2 5 8 7 8 6];
-weather.linestyle = 'k-o';
-
-% plot a figure, by referencing specific fields of the weather structure
-
-figure(1)
-hold off
-plot(weather.days, weather.temperature, weather.linestyle);
-xlabel('Days');
-ylabel('Temperature (^oC)');
-title('Temperature over the first ten days of the month');
-grid on;
+weather.days = [1 2 3 4 5 6 7 8 9 10];                % create a new array var under "weather" called days
+weather.temperature = [11 10 14 17 18 17 15 16 18 20];% create a new array var under "weather" called temperture
+weather.rainfall = [6 3 5 0 1 0 2 8 3 2];             % create a new array var under "weather" called rainfall
+weather.wind = [12 9 8 4 2 5 8 7 8 6];                % create a new array var under "weather" called wind
+weather.linestyle = 'k-o';                            % create a new string var under "weather" called linestyle - used to replace plot line style command
+                                                      % plot a figure, by referencing specific fields of the weather structure
+figure(1)                                             % number the first figurine as 1
+hold off;                                             % make sure not data from old graphs is plotted on this one
+plot(weather.days, weather.temperature, weather.linestyle); % plot weather.days on x weather.temperture on y with weather.linestyle plot style
+xlabel('Days');                                       % name the x axis days
+ylabel('Temperature (^oC)');                          % name the y axis Temperature (^oC)
+title('Temperature over the first ten days of the month');  % add a plot title
+grid on;                                              % add the grid to the plot
+%% Exercise 4.9 - An Indtroduction to System Objects
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
