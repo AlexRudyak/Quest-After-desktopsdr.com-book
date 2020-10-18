@@ -1,4 +1,4 @@
-
+clc, clear;
 %% Exercise 4.5 - MATLAB Figures
 clc, clear;
 % this is used to generate and plot sine and cosine waves
@@ -107,6 +107,36 @@ hold on;                                              % keep both graphs drawn
 plot(x_axis,y(26:125),'b');                           % plot the filtered guassian signal on the same axis, note the 25 sample delay, because of the 50 co-efficients of the filter, the signal must be delayed to synchronize
 hold off;                                             % stop drawing over the graph we used
 
+%% Exercise 4.14 - Working with Variables and Parameters
+clear, clc;                                           % clear the workspace and command window
+fs = 1000;                                            % define sampling frequency
+fs2 = 500;                                            % define another sampling frequency (for testing)
+delay = 3;                                            % define a variable for delay
+
+%% Exercise 4.15 - Setting up Variables as a Model Loads
+figure(1);                                            % define the 1st figure
+stem(out.del_samples.time, out.del_samples.signals.values); % stem the time of the del_samples as x axis, and del_samples.signals.values as y axis
+xlabel('time');                                       % name the x label as time
+ylabel('amp');                                        % name the y label as amplitude
+
+%% Exercise 4.23 - Saving and Importing RTL-SDR Data in MATLAB and Simulink
+clc, clear;                                           
+obj_rtlsdr = import_rtlsdr_data('filepath','rtlsdr_data.mat',...       % create an "import rtl-sdr data" object and make the file path to rtlsdr_data.mat
+                                'frm_size',4096,...                    % make the frame size of the object to 4096 frames
+                                'data_type','single');                 % make the data type of the object to "single"
+rtlsdr_data = obj_rtlsdr();                           % make a new var called rtlsdr_data and make it take one iteration of the system object of "import rtl-sdr data"
+rtlsdr_fs = obj_rtlsdr.fs;                            % make a new var called rtlsdr_fs which takes the parameter fs from the object we called
+obj_spectrum = dsp.SpectrumAnalyzer('SpectrumType','Power density',... % call for a spectrum analyzer object and choose the power density spectrum type
+                                    'FrequencySpan','Full',...         % make the frequency span of the spectrum analyzer as full
+                                    'SampleRate',rtlsdr_fs);           % make the samplerate of the spectrym analyzer the same as the object of the import data
+rtlsdr_frmtime = 4096/rtlsdr_fs;                      % make a new var called rtlsdr_frmtime and calculate the time of one frame by dividing the frame size of the rtl object and sampling frequency
+run_time = 0;                                         % make a new var run_time that acts like a counter for how much time has past
+sim_time = 10;                                        % make a new var called sim_time that acts as a stop for stopping the simulation time 
+while run_time < sim_time:                            % create a loop that runs for our desired simulation time   
+    rtlsdr_data = obj_rtlsdr();                       % add one iteration of obj_rtlsdr into the variable rtlsdr_data
+    obj_spectrum(rtlsdr_data);                        % insert the data collected from the object into the spectrum
+    run_time =+ rtlsdr_frmtime;                       % advance the run time by one frame
+end
 
 %%  Software, Simulation Examples and Design Exercises Licence Agreement  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -176,7 +206,6 @@ hold off;                                             % stop drawing over the gr
 %  for any other purpose should be directed to: info@desktopSDR.com. For
 %  information on music track names, full credits, and links to the 
 %  musicians please refer to www.desktopSDR.com/more/audio.
-%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
